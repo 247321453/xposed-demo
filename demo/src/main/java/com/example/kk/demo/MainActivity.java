@@ -2,7 +2,9 @@ package com.example.kk.demo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -22,20 +24,23 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    WebView webView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        webView=new WebView(this, null);
         findViewById(R.id.xuils).setOnClickListener(this);
         findViewById(R.id.httpclient).setOnClickListener(this);
         findViewById(R.id.urlconnection).setOnClickListener(this);
+        findViewById(R.id.webview).setOnClickListener(this);
+        webView.getSettings().setSupportMultipleWindows(false);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.xuils:
                 xutils_post();
                 break;
@@ -55,13 +60,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }).start();
                 break;
+            case R.id.webview:
+                webView.loadUrl("http://www.sina.com.cn");
+                break;
         }
     }
 
-    private void urlconnection(){
-        URL url= null;
+    private void urlconnection() {
+        URL url = null;
         try {
-            url = new URL("http://www.baidu.com/");
+            url = new URL("http://127.0.0.1:8082/");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.getResponseCode();
         } catch (MalformedURLException e) {
@@ -71,14 +79,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void httpclient(){
+    private void httpclient() {
         List<BasicNameValuePair> params = new LinkedList<BasicNameValuePair>();
         params.add(new BasicNameValuePair("param1", "中国"));
         params.add(new BasicNameValuePair("param2", "value2"));
         //对参数编码
         String param = URLEncodedUtils.format(params, "UTF-8");
         //baseUrl
-        String baseUrl = "http://www.baidu.com/";
+        String baseUrl = "http://127.0.0.1:8081/";
         //将URL与参数拼接
         HttpGet getMethod = new HttpGet(baseUrl + "?" + param);
         HttpClient httpClient = new DefaultHttpClient();
@@ -91,25 +99,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private void xutils_post(){
-        RequestParams requestParams=new RequestParams("http://www.baidu.com/");
+    private void xutils_post() {
+        RequestParams requestParams = new RequestParams("http://www.baidu.com/");
         requestParams.addBodyParameter("test", "true");
         requestParams.setMethod(HttpMethod.POST);
-        x.http().post(requestParams, new Callback.CommonCallback<String>(){
+        x.http().post(requestParams, new Callback.CommonCallback<String>() {
 
             @Override
             public void onSuccess(String result) {
-
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-
+                Log.i("xuhu", "xuhu", ex);
             }
 
             @Override
             public void onCancelled(CancelledException cex) {
-
+                Log.i("xuhu", "xuhu", cex);
             }
 
             @Override

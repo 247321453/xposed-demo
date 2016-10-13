@@ -272,7 +272,7 @@ public class ReverseXposedModule implements IXposedHookLoadPackage {
     }
 
     public void mLog(String tag, String text) {
-        Log.i(TARGET_APP, "xuhu" + tag + ":" + text);
+        Log.i(TARGET_APP, "xuhu_" + tag + ":" + text);
         if (msp != null) {
             if (HTTP_DATA) {
                 mSharePrefer(text, tag);
