@@ -11,12 +11,12 @@
             android:value="true"/>
         <meta-data
             android:name="xposeddescription"
-            android:value="大神是这样吗？"/>
+            android:value="这是描述"/>
         <meta-data
             android:name="xposedminversion"
             android:value="53"/>
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.kk.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
