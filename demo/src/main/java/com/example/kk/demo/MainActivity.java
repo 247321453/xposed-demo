@@ -1,6 +1,6 @@
 package com.example.kk.demo;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +24,7 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener {
     WebView webView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
